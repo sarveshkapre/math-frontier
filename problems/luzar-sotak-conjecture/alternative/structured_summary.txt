@@ -1,0 +1,1 @@
+tested=467 unsat4=2 unknown4=0 unbounded_unsat=2 max_nodes4=208

@@ -1,0 +1,97 @@
+INDEPENDENT REVIEW: TWO-PORT NO-GO AND TEN-TO-SIX VERTEX REPLACEMENT
+Date: 2026-11-26
+
+Verdict: the stated local recoloring lemma and exact replacement theorem are
+correct under the specified two-pole hypotheses. No counterexample to the
+Luzar-Sotak conjecture follows. Instead, the theorem eliminates the previously
+proposed ten-vertex fragment from a minimum-order counterexample.
+
+Objects reviewed:
+  theory/two_pole_reduction.md
+  the literal edge lists and both seven-row extension tables in that document
+
+INDEPENDENT CHECKS
+
+review_checks.py uses separately entered literal edges, rather than the previous
+graph6 parser or C++ solvers. It verifies all seven displayed extensions of H
+and all seven extensions of U = K3,3 minus one edge, with external leaves added.
+It also checks every feasible local ordered neighborhood-color configuration
+with distinct attachment colors: 96 for a three-color palette, 972 for four
+colors, and 5,120 for five colors. Same-colored attachments already repeat a
+boundary color and require no recoloring. These finite checks support the
+written proof; they are not a substitute for its general argument.
+
+REASON THE LOCAL LEMMA IS SOUND
+
+At an attachment vertex of color P, the two internal neighbors either have
+one common color A or have two distinct colors A,B. Properness ensures these
+colors differ from P. The permissible color set for its external leaf is
+C minus {P,A} in the first case and {A,B} in the second. These sets are exactly
+the valid possibilities, not merely sufficient subsets.
+
+With four available colors both sets have size two. For distinct attachment
+colors P,Q, either a leaf can match the opposite attachment color, or both
+allowed sets are the same two colors outside {P,Q}. In the latter case the
+leaves can match each other. With five colors the two sets have size at least
+two inside a three-color complement and hence intersect. Only leaf colors
+change; their choices are independent when the attachments are distinct.
+
+The six-color local example P=0, Q=1, internal-neighbor colors {2,3} at P and
+{4,5} at Q has disjoint allowed sets {2,3} and {4,5}. It shows that this local
+intersection argument cannot simply be generalized to arbitrary palettes.
+It is not a construction of a global cubic gadget or a counterexample.
+
+BOUNDARY AND CONNECTIVITY EDGE CASES
+
+1. If the two external incidences have the same attachment vertex, the four
+   boundary entries already repeat that vertex's color. No independent-leaf
+   recoloring argument is needed in this case.
+2. If the two distinct attachment vertices are adjacent inside the complement,
+   changing the external leaves still changes only the respective attachment
+   neighborhoods. No step assumes nonadjacent attachment vertices.
+3. The complement may be disconnected. The lemma and extension construction are
+   component-independent. Connectivity of the completed graph follows because
+   both the old and new fragments are connected and attach to the same incidences.
+4. The embedded H must have precisely its displayed ten-vertex internal graph
+   and two edges to vertices outside it. Merely containing some of H's edges is
+   an insufficient description. If its two free incidences instead join to
+   each other, it is a closed ten-vertex component, not the theorem's occurrence.
+5. Replacing H by U creates no loop or parallel edge, including when both
+   external edges reach the same outside vertex: they reach distinct new ports.
+6. The definition should explicitly require each external leaf to have an
+   internal neighbor; this excludes a disconnected isolated K2 consisting of
+   the two leaves. Every complement arising in the replacement theorem has
+   the required property automatically.
+
+PRESERVED PROPERTIES AND LIMITS
+
+Every proper boundary equality pattern has an unrestricted extension in both
+fragments. Thus arbitrary colorability of either completed graph is equivalent
+to arbitrary colorability of its complementary two-pole. The six-vertex fragment
+extends all seven patterns using at most four colors. For the ten-vertex
+fragment, the local lemma first makes a boundary repetition, after which its
+six corresponding table rows give a four-color extension. Hence the two
+completed graphs agree on both arbitrary feasibility and four-color feasibility.
+
+The theorem does not, as stated, prove preservation of three-color feasibility
+or the exact minimum number of colors. It also does not prove the general
+four-color conjecture. The reduction and local lemma have been derived and
+reviewed in this session; priority/novelty has not been established.
+
+TRIANGLE-FREE CAUTION
+
+The archived nonadmissible bridgeless 14-vertex graph with graph6 string
+M??OPDDIA_ook?q?? is triangle-free, connected, nonbipartite, and has girth five.
+Its unrestricted nonadmissibility is a result of the earlier exact search, not
+re-established by the review script. Consequently a proposed unconditional
+existence theorem for all triangle-free cubic graphs would conflict with the
+existing data. Conditional four-color sufficiency for admissible triangle-free
+graphs is a different statement and is not refuted by that observation.
+
+LITERATURE CONTEXT
+
+Hao, Liu and Romaniello (arXiv:2611.16649, 2026), Lemma 3.8, already prove that
+splicing edges of two properly 2-homogeneously k-colorable graphs preserves
+k-colorability. Their paper also uses prescribed-boundary Heawood three-poles.
+Thus the broad methodology of boundary states or edge-splicing is established.
+This review does not attribute those existing ideas to the present experiment.

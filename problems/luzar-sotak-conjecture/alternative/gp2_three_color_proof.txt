@@ -1,0 +1,70 @@
+Claim: for n >= 5, GP(n,2) admits a proper 2-homogeneous coloring with three
+colors if and only if 3 divides n.
+
+Definition
+----------
+GP(n,2) has outer vertices u_i and inner vertices v_i, indices modulo n, with
+edges u_i u_(i+1), u_i v_i, and v_i v_(i+2). For n >= 5 it is simple and cubic.
+A coloring is proper and 2-homogeneous if adjacent vertices differ and the three
+neighbors of every vertex have exactly two distinct colors.
+
+Sufficiency
+-----------
+For 3|n set c(u_i)=i modulo 3 and c(v_i)=i+1 modulo 3. At u_i the neighbor
+colors are i-1, i+1, i+1 modulo 3. At v_i they are i-1, i+3, i modulo 3,
+namely i-1 and i. All neighbors differ from their center. The periodic assignment
+respects the wrap because 3 divides n.
+
+Finite-state equivalence
+------------------------
+A column is the ordered pair C_i=(c(u_i),c(v_i)). There are exactly six possible
+columns with three named colors, because spoke endpoints must differ.
+The alphabet order is (0,1),(0,2),(1,0),(1,2),(2,0),(2,1).
+
+A state consists of four consecutive columns C_0,C_1,C_2,C_3 and is retained
+exactly when:
+1. Consecutive outer entries differ: u_0!=u_1, u_1!=u_2, u_2!=u_3.
+2. The two inner edges visible in the state are proper: v_0!=v_2, v_1!=v_3.
+3. The outer vertices in columns 1 and 2 each see exactly two neighbor colors.
+
+A transition appends C_4 and shifts one column. It is retained exactly when the
+target four-column state is valid and the three neighbor colors of inner v_2,
+namely v_0,v_4,u_2, form a set of size two. Its incident edges are already proper
+by source/target validity and the spoke alphabet.
+
+For n >= 5, any coloring of GP(n,2) supplies a closed walk of length n in this
+graph by reading consecutive cyclic four-column windows. Conversely, every
+closed walk of length n supplies a cyclic column sequence: consecutive states
+overlap in three entries, including at the wrap. Every spoke and outer/inner
+edge is proper; every outer neighborhood is checked inside a state and every
+inner neighborhood in a transition. Thus the resulting graph coloring obeys
+all requirements. No quotient by color permutations is used.
+
+Rank/phase certificate
+----------------------
+The verifier independently constructs all six^4 candidate states and all six
+extensions of each retained state. There are 108 retained states and 180 arcs.
+The JSON certificate assigns each state a nonnegative integer rank r and a phase
+p in {0,1,2}. The verifier checks on every arc s -> t that either:
+    r(t) > r(s),
+or  r(t) = r(s) and p(t) = p(s)+1 modulo 3.
+
+On a closed walk the rank cannot increase anywhere, since it never decreases
+and must return to its starting value. Every arc therefore increments phase
+by one modulo three. Returning to the starting phase requires the walk length
+to be divisible by three. By the finite-state equivalence, any three-coloring
+has 3|n, proving necessity for every n, not only a bounded sample.
+
+Reproduction
+------------
+python3 verify_gp2_certificate.py
+
+The verifier needs only Python's standard library and the JSON certificate.
+build_gp2_certificate.py uses NetworkX to generate the certificate, but the
+verification and proof do not trust its SCC or topological-sort implementation.
+
+This is a rigorous finite-state proof with a directly checked certificate. It
+has not been formalized in a proof assistant. Novelty is not established; the
+result may follow from prior work under another name (e.g. dynamic coloring or
+fall coloring). It concerns the GP(n,2) family, not the general Lužar–Soták
+conjecture.

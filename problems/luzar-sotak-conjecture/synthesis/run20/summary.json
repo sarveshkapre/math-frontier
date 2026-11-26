@@ -1,0 +1,19 @@
+{
+  "sizes": [
+    4,
+    4,
+    4,
+    4,
+    4
+  ],
+  "seed": 20261126,
+  "triangle_free": true,
+  "candidates": 1333,
+  "cuts": 2,
+  "oracle_unknown": 0,
+  "status": "TIME_LIMIT",
+  "max_four_conflicts": 18,
+  "seconds": 144.339,
+  "master_variables": 134876,
+  "master_clauses": 1306647
+}

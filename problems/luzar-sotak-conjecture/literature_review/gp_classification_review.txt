@@ -1,0 +1,75 @@
+INDEPENDENT REVIEW: GENERALIZED PETERSEN GP(n,2) CLASSIFICATION
+Date: 2026-11-26
+
+Verdict: the proposed classification follows rigorously from the three supplied
+components. For n >= 5, the minimum number of colors in a proper
+2-homogeneous coloring of GP(n,2) is three when 3 divides n, four when 3 does
+not divide n and n != 7, and undefined at n = 7 because no such coloring exists.
+
+This is an infinite-family result, not a resolution of the general Luzar-Sotak
+conjecture. It has been independently derived and checked here; novelty is
+still unestablished, as documented in generalized_petersen_literature.txt.
+
+1. FOUR-COLOR UPPER BOUND
+
+The explicit seed words for n=5,8,10 satisfy every properness and neighborhood
+constraint. The n divisible by three rule is directly valid modulo three.
+For the two other residue classes, the final two seed columns and initial two
+seed columns match a period-three sequence. Appending one complete three-column
+block at that seam changes only neighbors across distances one and two. Every
+affected old vertex receives neighbor colors identical to the removed ones;
+every new vertex has the neighborhood colors of the period-three pattern.
+The seam condition is preserved, so induction handles all future insertions.
+This is an actual all-n proof, not extrapolation from finite testing.
+
+2. THREE-COLOR NECESSITY
+
+The six spoke pairs form a named-color alphabet; no color-permutation quotient
+is taken. Four consecutive columns retain all local information required for
+properness and outer neighborhoods. A fifth column completes the inner
+neighborhood at the center. For n >= 5, proper 2-homogeneous three-colorings
+are therefore equivalent to closed walks of length n in the resulting transfer
+graph. All overlaps, including the cyclic closing overlap, preserve the same
+named colors, so there is no twisting or quotient ambiguity.
+
+The independent review enumerates five-column windows directly and recovers
+180 permitted transitions among the same 108 valid states. Every edge either
+strictly increases the certificate's rank or holds the rank and advances its
+phase modulo three. Closed walks can have no rank increase and must return to
+their initial phase. Their lengths are therefore divisible by three. This
+establishes necessity for every n. The periodic construction gives sufficiency.
+
+3. EXCEPTIONAL GRAPH n=7
+
+Every color class is an independent nonempty vertex set S, with no full vertex
+neighborhood contained in S. Let M(S) be the vertices having exactly two
+neighbors in S. In any valid coloring each vertex lies in exactly one color
+class and has exactly one repeated neighbor color. Thus the sets consisting of
+S in one copy of V and M(S) in a second copy form an exact cover.
+
+Conversely, any such exact cover partitions V into independent color classes
+and assigns every vertex one class containing two of its neighbors. The third
+neighbor cannot belong to that class, and is assigned some other class by the
+partition. Thus every vertex sees exactly two neighbor colors. This establishes
+equivalence for arbitrary palette sizes, not merely a selected small palette.
+
+An independent set-based enumeration using literal GP(7,2) neighborhoods finds
+322 possible rows. The supplied no-cover certificate has 778 remaining-set
+states. Each state chooses an uncovered element; every eligible row covering
+that element leads to another certified strict subset. No empty state is
+certified. Induction by remaining-set size therefore proves all recorded
+states infeasible, including the full 28-element universe. The independent
+verifier checks all 822 branch transitions. No external SAT result is needed.
+
+REPRODUCTION
+
+From any working directory, run:
+  python3 literature_review/review_gp_certificates.py
+with the project-relative path adjusted as needed. The script locates the
+certificate files relative to its own location and imports no other project
+source, no SAT package, and no graph library. Its implementation uses
+five-column windows and set-based exact-cover rows to reduce shared-code risk.
+
+The certificates and their checkers are ordinary executable mathematical
+certificates, not proof-assistant formalizations. Python assertions must remain
+enabled; do not run the verifiers with the optimization flag -O.

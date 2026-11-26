@@ -1,0 +1,15 @@
+__pycache__/
+*.py[cod]
+.venv/
+.env
+.DS_Store
+*.o
+*.out
+*.exe
+/problems/luzar-sotak-conjecture/previous/search
+/problems/luzar-sotak-conjecture/previous/poles
+/problems/luzar-sotak-conjecture/previous/triple_gap
+/problems/luzar-sotak-conjecture/previous/multigap
+/problems/luzar-sotak-conjecture/alternative/targeted
+/problems/luzar-sotak-conjecture/alternative/structured
+/problems/luzar-sotak-conjecture/alternative/gp2

@@ -1,0 +1,9 @@
+{
+  "candidates_verified": 1333,
+  "valid5": 1333,
+  "valid4": 1333,
+  "bipartite": 26,
+  "nonbipartite": 1307,
+  "wl_hashes": 1,
+  "warning": "All cubic graphs share an uninitialized 1-WL hash, so this does not deduplicate isomorphism."
+}

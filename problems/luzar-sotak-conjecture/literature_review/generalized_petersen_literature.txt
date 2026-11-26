@@ -1,0 +1,79 @@
+FOCUSED LITERATURE CHECK: 2-HOMOGENEOUS COLORINGS OF GP(n,2)
+Date: 2026-11-26
+
+Question checked: whether the statement that GP(n,2) admits a proper
+2-homogeneous coloring with at most four colors for every n >= 5 except n = 7
+is already present in accessible primary literature.
+
+Result: no matching theorem was located in this search. This is not evidence
+of priority or a guarantee that the result is new. In particular, unpublished
+work and theses not indexed under the searched terminology remain a gap.
+
+PRIMARY MATERIAL INSPECTED
+
+1. Janicova, Madaras, Sotak, Luzar (2017), From NMNR-coloring of hypergraphs to
+   homogenous coloring of graphs, Ars Mathematica Contemporanea 12, 351-360.
+   Author-uploaded full text:
+   https://www.researchgate.net/publication/313129431_From_NMNR-coloring_of_hypergraphs_to_homogenous_coloring_of_graphs
+   The accessible full text has no occurrence of 'Petersen'. It proves the
+   original six-color bipartite result and reports bipartite computational
+   verification of the four-color conjecture through order 26, p. 358.
+
+2. Luzar and Sotak, Section 5 of the 2025 Cycles and Colourings workshop problems.
+   https://arxiv.org/html/2511.02892v1
+   The section states Problems 5.1 and 5.2 but neither identifies GP(7,2) nor
+   classifies generalized Petersen graphs. The illustrative forbidden fragment
+   is a triangular prism with one triangle edge subdivided.
+
+3. Hao, Liu, Romaniello (2026), On 2-Homogeneous Colourings of Cubic Bipartite
+   Graphs, arXiv:2611.16649, submitted November 12.
+   https://arxiv.org/abs/2611.16649
+   Readable manuscript mirror: https://borowiecki.dev/pdf/2611.16649
+   The paper proves the bipartite case and records the claw-free case, leaving
+   the general question open. No GP(n,2) classification was found there.
+
+4. Hamed Karami (2026), Perfect 3-colorings of the generalized Petersen graphs
+   GP(n,2), arXiv:2611.21435, submitted November 16.
+   https://arxiv.org/abs/2611.21435
+   Readable manuscript mirror: https://borowiecki.dev/pdf/2611.21435
+   This classifies equitable/perfect three-colorings, not proper
+   2-homogeneous colorings. The five surviving matrices have nonzero diagonal
+   entries, so their colorings contain adjacent vertices of the same color.
+   Its cited older nonexistence of a perfect three-coloring of GP(7,2) is not
+   the unrestricted 2-homogeneous nonexistence needed here. The paper contains
+   no occurrence of 'fall', 'proper', or 'homogeneous' in the extracted text.
+
+5. Dafik et al. (2017), Several classes of graphs and their r-dynamic chromatic
+   numbers, Journal of Physics: Conference Series 855, 012011.
+   https://www.researchgate.net/publication/317392540_Several_classes_of_graphs_and_their_r_-dynamic_chromatic_numbers
+   DOI: 10.1088/1742-6596/855/1/012011
+   A superficially matching theorem says dynamic three-colorability occurs
+   exactly when 3 divides n for a graph denoted P_{n,2}. Its definition is the
+   PRISM graph, equivalent to GP(n,1), not the generalized Petersen GP(n,2).
+
+TERMINOLOGY CAUTIONS
+
+A dynamic or (k,2)-conditional coloring requires at least two neighbor colors.
+With a proper three-color palette that is equivalent to exactly two; with a
+four-color palette it permits a rainbow neighborhood and is insufficient here.
+
+A perfect/equitable coloring requires fixed neighbor-color multiplicities for
+each vertex-color class. It need not be proper and is not equivalent to
+2-homogeneous coloring. A neighborhood-balanced three-coloring is also a
+different condition and should not be substituted.
+
+'Petersen coloring' commonly means an edge map to the Petersen graph preserving
+edge incidences (Jaeger's problem), which is unrelated to the vertex-coloring
+criterion being studied here.
+
+Searches included both homogeneous/homogenous spellings, colour/color forms,
+fall coloring, 2-dynamic and conditional coloring, NMNR, role coloring,
+independent domination/idomatic partitions, and 'exactly two' neighborhood
+phrases combined with generalized Petersen and GP(n,2).
+
+ASSESSMENT
+
+The proposed all-n construction should be documented as independently derived,
+with novelty pending. It is outside the already solved bipartite class:
+GP(n,2) contains the 5-cycle u_i,u_{i+1},u_{i+2},v_{i+2},v_i,u_i for every
+n >= 5. This last observation follows directly from the graph definition.

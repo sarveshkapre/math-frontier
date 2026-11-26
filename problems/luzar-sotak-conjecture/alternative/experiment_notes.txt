@@ -1,0 +1,102 @@
+Targeted alternative search, 2026-11-26
+
+Outcome
+-------
+No counterexample. This is a bounded exploratory experiment, not a general
+exhaustive search or a claim of new mathematics.
+
+Random/mutational batch
+-----------------------
+7,000 labelled graph instances, 1,000 each on 18, 22, 26, 30, 34, 40, 50 vertices.
+At each order 500 fresh configuration-model samples were retained after checking
+simple, cubic, connected, bridgeless, triangle-free and non-bipartite. Then 500
+instances came from degree-preserving two-edge switches of the 32 instances with
+the most four-color search nodes. Exact duplicate labelled graph6 strings were
+excluded at each order. Isomorphic instances with different labels were NOT
+deduplicated. Mutation samples are intentionally biased, not uniformly random.
+
+All 7,000 admit a proper 2-homogeneous coloring with at most four colors. The
+colors are saved per graph in samples.tsv. No node limit was reached. Maximum
+four-color node counts by order: 162, 42, 56, 1631, 49, 59, 12004. Median node
+counts were 12, 15, 18, 21, 24, 28, 35. Thus the bulk of these larger samples was
+easy to color and gives little evidence that generic random search is promising.
+
+Structured batch
+----------------
+The old 14-vertex triangle-free uncolorable graph is isomorphic to generalized
+Petersen G(7,2), also isomorphic to G(7,3). We tested:
+* 159 generalized Petersen parameter pairs (m,k) with 5<=m<=31,
+  1<=k< m/2, retained when triangle-free and non-bipartite (and connected and
+  bridgeless). These have 2m vertices, up to 62. Isomorphic parameter pairs are
+  retained, so this is not a count of isomorphism classes.
+* All 168 admissible two-edge subdivision-and-join outcomes from G(7,2), on 16
+  vertices: subdivide two different edges and join the two inserted vertices.
+  Pairs that create a triangle are excluded by the structural filter.
+* 140 distinct labelled admissible two-edge-switch outcomes from G(7,2), on 14
+  vertices. Each is simple, cubic, triangle-free, non-bipartite and bridgeless.
+
+Among these 467 instances, 465 admit four-color witnesses. The only exceptions
+are the two isomorphic G(7,2)/G(7,3) representations. Each has no coloring with
+any number of colors, and therefore is not a counterexample. Every tested
+admissible subdivision or switch of the obstruction became four-colorable.
+These neighborhood scans are finite exact operation scans, not an exhaustive
+scan of all 14-, 16-, or 62-vertex cubic graphs.
+
+Family theorem developed from this experiment
+--------------------------------------------
+For every n >= 5, GP(n,2) has a proper 2-homogeneous three-coloring iff 3|n.
+The forward direction has a standard-library-checkable finite-state certificate
+over 108 states and 180 transitions; the converse is an explicit period-three
+coloring. See gp2_three_color_proof.txt, gp2_three_color_certificate.json, and
+verify_gp2_certificate.py. This is an all-n argument, separate from the bounded
+search results above. Novelty remains unestablished.
+
+gp2_palette.csv records the exploratory minimum-palette decisions through n=31
+(up to 62 graph vertices). All 27 three-color decisions were independently
+confirmed with the separate SAT encoding in verify_gp2.py; all witnesses were
+checked directly. The lower-bound proof does not depend on these bounded tests.
+
+Verification
+------------
+The C++ solver enforces generalized arc consistency on the four-vertex local
+constraint (center differs from all neighbors; exactly one equal pair among
+the three neighbors), followed by exhaustive search with a limit of 1,000,000
+nodes. Every SAT answer is checked directly. UNKNOWN is never reported UNSAT.
+The unbounded solver branches on the equal neighbor pair at each vertex and
+maintains equality classes and inequalities.
+
+verify.py independently decodes all graph6 instances with NetworkX, checks all
+structural filters and all 7,465 positive witnesses, and uses a separate CNF
+encoding plus CaDiCaL 1.9.5 through python-sat to verify both exceptional
+representations at palettes 4, 5 and 14. Since each graph has 14 vertices,
+failure at 14 colors proves failure with an unrestricted palette. All six SAT
+checks returned UNSAT, agreeing with equality-pattern search.
+
+This rechecks a previously known local obstruction as an experiment control,
+not a newly discovered obstruction. No novelty search for generalized Petersen
+results has been completed as part of this subtask.
+
+Files and reproduction
+----------------------
+targeted.cpp, structured.cpp: C++17 source.
+samples.tsv, summary.txt, hardest.tsv: random/mutational records.
+structured.tsv, structured_summary.txt: structured records.
+verify.py, verification.json: independent checks and exact SAT statistics.
+exceptions.tsv: header only, since all random/mutational samples have four colors.
+
+Run from this directory:
+g++ -std=c++17 -O3 -Wall -Wextra targeted.cpp -o targeted
+./targeted 1000 2611260711 > summary.txt
+g++ -std=c++17 -O3 -Wall -Wextra structured.cpp -o structured
+./structured > structured_summary.txt
+python3 verify.py
+g++ -std=c++17 -O3 gp2.cpp -o gp2
+./gp2 > gp2_palette.csv
+python3 verify_gp2.py
+python3 verify_gp2_certificate.py
+
+Compiler used: g++ (Debian 14.2.0-19) 14.2.0. Seed: 2611260711.
+Python verification dependencies: networkx and python-sat.
+Status columns: 0=UNSAT, 1=SAT, 2=UNKNOWN due to node limit, 3=NOT_RUN.
+Only the four-color solver runs on every instance. Further solvers run when
+four colors fail or return UNKNOWN. No UNKNOWN arose in the completed batches.

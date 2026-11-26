@@ -1,0 +1,167 @@
+LUZAR–SOTAK RESEARCH — SECOND ITERATION
+Date: 2026-11-26
+
+STATUS
+======
+The general conjecture is not solved. No counterexample was found.
+This iteration derived and independently checked an exact classification for
+the infinite family of generalized Petersen graphs GP(n,2), and proved that
+our previously proposed ten-vertex gadget is removable from a smallest
+counterexample. Novelty of these derived results has NOT been established.
+
+THE INFINITE-FAMILY RESULT
+=========================
+For n >= 5, GP(n,2) has vertices u_i,v_i (indices modulo n), and edges
+u_i u_(i+1), u_i v_i, v_i v_(i+2). It is a simple cubic graph on 2n vertices.
+The minimum number of colors in a proper 2-homogeneous coloring is:
+
+  3 if 3 divides n;
+  no valid coloring with any palette if n = 7;
+  4 for every remaining n >= 5.
+
+A proper 2-homogeneous coloring assigns different colors to adjacent vertices
+and exactly two distinct colors to each vertex's three neighbors.
+
+Proof components
+----------------
+1. Explicit upper bounds. For multiples of three, repeat outer word 012 and
+   inner word 120. For n=8+3t, use outer 01021012 followed by t copies of 012,
+   and inner 12210320 followed by t copies of 120. For n=10+3t, use outer
+   0102302312 followed by t copies of 012 and inner 1220033120 followed by
+   t copies of 120. The n=5 seed is outer 01012, inner 12300. A written local
+   insertion proof shows that every repetition preserves all constraints.
+   This is a proof for all n in the family, not extrapolation from samples.
+
+2. Three-color necessity. A three-coloring corresponds exactly to a closed
+   walk of length n in a transfer graph of 108 states and 180 transitions.
+   A checked rank/phase certificate ensures every closed walk has length
+   divisible by three. The verifier reconstructs every state and transition;
+   it uses no graph library or SAT solver.
+
+3. The n=7 exception. Its 14 vertices admit exactly 322 possible color classes
+   that are independent and contain no complete neighborhood. A coloring with
+   any number of colors is equivalent to a particular exact-cover problem on
+   28 elements. A checked proof DAG with 778 states and 822 transitions proves
+   this exact-cover problem infeasible. The verifier uses only Python's
+   standard library. Independent SAT and equality-pattern searches agree.
+
+The complete classification is in theory/gp_n_2_classification.md.
+The construction proof is in theory/gp_n_2_construction.md.
+The three-color lower-bound proof is in alternative/gp2_three_color_proof.txt.
+The arbitrary-palette exception is explained in theory/gp7_exact_cover.py.
+An independent reviewer checked the mathematics and separately regenerated
+both finite certificate problems: literature_review/gp_classification_review.txt.
+These are elementary proofs plus directly checked finite certificates, not
+formal proof-assistant verification.
+
+THE GADGET CORRECTION
+====================
+Our earlier recommendation to seek a four-colorable complementary two-port
+gadget forcing four distinct boundary colors was misguided.
+
+In any four-coloring of such a fragment, each outside leaf has two allowed
+colors once internal colors are fixed. Either one can match the opposite
+attachment vertex, or both can match each other. Hence the four boundary
+entries can always be made to use at most three distinct colors. The same
+repetition conclusion holds with a five-color palette.
+
+The ten-vertex fragment's conditional fifth-color obstruction is valid, but
+it cannot obtain its necessary boundary condition from an independently
+four-colorable complementary two-pole. More strongly, replacing this fragment
+by the six-vertex K3,3-minus-an-edge fragment preserves both arbitrary-palette
+feasibility and four-color feasibility, while removing four vertices.
+A minimum-order counterexample therefore cannot contain the ten-vertex
+fragment attached to the rest of the graph through exactly its two ports.
+
+This does not rule out all counterexamples, all two-edge cuts, or other
+gadgets. Full hypotheses, proof, witnesses, and edge cases are in
+theory/two_pole_reduction.md and literature_review/reviewer_report.txt.
+
+COMPLETED SEARCHES THIS ITERATION
+================================
+7,000 random/mutational graph instances: 1,000 at each order 18,22,26,30,34,40,50.
+  Each is simple, connected, cubic, bridgeless, triangle-free, nonbipartite.
+  All admit four-color witnesses. No node limit was reached.
+
+159 generalized Petersen parameter pairs through 62 vertices, filtered for
+  triangle-free nonbipartite graphs. 157 admit four-color witnesses. The two
+  exceptions are isomorphic representations GP(7,2) and GP(7,3), which admit
+  no valid coloring at all and are not counterexamples.
+
+308 local perturbations of GP(7,2): 168 retained edge-subdivision-and-join
+  outcomes and 140 retained edge-switch outcomes. All admit four colors.
+
+1,333 solver-guided instances on 20 vertices. A SAT master chose triangle-free
+  cubic graphs with a planted five-color witness, with five color classes of
+  size four. A second SAT solver found a four-coloring of every candidate.
+  Each such coloring was fed back to exclude every graph that it would color.
+  Disconnected/bridged candidates received cut constraints. Of the 1,333
+  completed instances, 1,307 were nonbipartite and 26 bipartite. The run stopped
+  at its time budget (checked between solver calls; elapsed 144.339 seconds).
+  This is a restricted, bounded synthesis run, not an exhaustive census.
+
+Total: 8,800 graph instances in these batches; 8,798 checked four-color
+witnesses, plus two representations of the known uncolorable exception.
+Instances were not deduplicated up to graph isomorphism; these totals are NOT
+counts of distinct isomorphism classes. Generic larger samples mostly colored
+easily. The structural analysis produced the more useful result.
+
+Experimental sources, seeds, data and verification summaries are under
+alternative/ and synthesis/. The earlier archive's files are retained unchanged
+under previous/; those earlier results are not counted as new work.
+
+REPRODUCING THE THEOREMS
+======================
+From this directory, run:
+
+  python3 verify_theorems.py
+
+This needs Python 3.10+ and only its standard library. It checks the two-pole
+tables/local cases, all construction seeds and seam invariants, the complete
+three-color transfer certificate, and the unrestricted GP(7,2) certificate.
+It also runs the independent review implementation. Written arguments explain
+why these finite certificates prove the respective statements for all n.
+
+To print a construction for any allowed n, for example 100:
+
+  python3 theory/gp_n_2_construction.py 100
+
+The broader experiments require g++, networkx and python-sat; reproduction
+commands and versions are documented in alternative/experiment_notes.txt and
+synthesis/README.txt. Compiled binaries are intentionally not included.
+
+LITERATURE AND CREDIT
+====================
+The underlying question is Lužar and Soták's Problem 5.1 in:
+  Barát et al., Open problems of the 33rd Workshop on Cycles and Colourings,
+  arXiv:2511.02892 (2025), https://arxiv.org/html/2511.02892v1
+
+Hao, Liu and Romaniello, On 2-Homogeneous Colourings of Cubic Bipartite Graphs,
+arXiv:2611.16649, submitted November 12, 2026, proves the cubic bipartite case;
+Section 4 explicitly leaves the general cubic question open. Its Lemma 3.8
+already gives a color-preserving edge-splicing lemma and its proof uses
+prescribed-boundary Heawood three-poles. We do not claim those methods as new.
+  https://arxiv.org/abs/2611.16649
+  Readable manuscript mirror: https://borowiecki.dev/pdf/2611.16649
+
+Janicová, Madaras, Soták and Lužar, From NMNR-coloring of hypergraphs to
+homogenous coloring of graphs, Ars Mathematica Contemporanea 12 (2017),
+351–360, reports checking cubic BIPARTITE graphs through 26 vertices, p.358.
+That historical cutoff does not apply to general cubic graphs, and the recent
+bipartite theorem now subsumes it. No general-cubic published cutoff was found.
+
+The focused literature check did not locate the exact GP(n,2) classification.
+Related perfect/equitable and dynamic coloring papers concern different
+conditions and do not by themselves establish this result. Absence of a search
+match does not establish originality; see the detailed notes in
+literature_review/generalized_petersen_literature.txt.
+
+RECOMMENDED NEXT RESEARCH TARGET
+================================
+Check priority of the exact family theorem before presenting it as a new
+discovery. Mathematically, try to extend the construction/certificate approach
+to GP(n,k), starting with k=3 and then seeking statements uniform in k.
+The long-term objective remains the general cubic conjecture. The current
+proofs provide a working constructive method and a rigorous way to exclude
+unproductive gadget constructions; they do not justify a claimed probability
+or timetable for solving the general problem.

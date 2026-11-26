@@ -1,0 +1,92 @@
+{
+  "sample_witnesses": 7000,
+  "structured_witnesses": 465,
+  "negative_sat_checks": [
+    {
+      "family": "generalized_petersen",
+      "m": 7,
+      "k": 2,
+      "checks": [
+        {
+          "k": 4,
+          "satisfiable": false,
+          "variables": 98,
+          "clauses": 744,
+          "statistics": {
+            "restarts": 0,
+            "conflicts": 214,
+            "decisions": 227,
+            "propagations": 7095
+          }
+        },
+        {
+          "k": 5,
+          "satisfiable": false,
+          "variables": 112,
+          "clauses": 947,
+          "statistics": {
+            "restarts": 12,
+            "conflicts": 463,
+            "decisions": 533,
+            "propagations": 13911
+          }
+        },
+        {
+          "k": 14,
+          "satisfiable": false,
+          "variables": 238,
+          "clauses": 3404,
+          "statistics": {
+            "restarts": 64,
+            "conflicts": 1067,
+            "decisions": 2878,
+            "propagations": 50212
+          }
+        }
+      ]
+    },
+    {
+      "family": "generalized_petersen",
+      "m": 7,
+      "k": 3,
+      "checks": [
+        {
+          "k": 4,
+          "satisfiable": false,
+          "variables": 98,
+          "clauses": 744,
+          "statistics": {
+            "restarts": 0,
+            "conflicts": 211,
+            "decisions": 238,
+            "propagations": 5739
+          }
+        },
+        {
+          "k": 5,
+          "satisfiable": false,
+          "variables": 112,
+          "clauses": 947,
+          "statistics": {
+            "restarts": 7,
+            "conflicts": 358,
+            "decisions": 408,
+            "propagations": 9657
+          }
+        },
+        {
+          "k": 14,
+          "satisfiable": false,
+          "variables": 238,
+          "clauses": 3404,
+          "statistics": {
+            "restarts": 48,
+            "conflicts": 1019,
+            "decisions": 2596,
+            "propagations": 46718
+          }
+        }
+      ]
+    }
+  ]
+}
